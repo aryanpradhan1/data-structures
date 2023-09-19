@@ -62,5 +62,36 @@ public class ListDemo
             /* The hasNext method is used to determine if there is a next node after the iterator.
              * The hasNext is often used in the condition of a while loop.
              */
+
+            iterator = staff.listIterator(); // |TNBSG
+            while (iterator.hasNext()) {
+                String n = iterator.next();
+                if (n.equals("Natasha")) {
+                    iterator.remove();
+                }
+            }
+            /* Enhanced for loops work with linked lists! */
+            for (String n: staff) {
+                System.out.print(n + " ");
+            }
+            System.out.println();
+            System.out.println("Expected: Tony Bruce Scott Gamora");
+
+            iterator = staff.listIterator();
+            while (iterator.hasNext()) {
+                String n  = iterator.next();
+                if (n.equals("Scott")) {
+                    // staff.remove("Scott");
+                }
+            }
+            System.out.println(staff);
+
+            /* The enhanced for loop AUTOMATICALLY creates an iterator! */
+            for (String n: staff) {
+                if (n.equals("Scott")) {
+                    staff.add("Rocket");
+                }
+            }
+            System.out.println(staff);
     }
 }
