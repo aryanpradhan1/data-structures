@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -37,7 +38,7 @@ public class SudokuSolver {
 
         // create the list of sets for each row (this.rows)
 
-        this.rows = new ArrayList<>()
+        this.rows = new ArrayList<>();
         for (int i = 0; i < N; i++) {
             Set<Integer> thisrow = new HashSet<> ();
             for (int j = 0; j < N; j++) {
@@ -47,7 +48,7 @@ public class SudokuSolver {
         }
 
         // create the list of sets for each col (this.cols)
-        this.cols = new ArrayList<>()
+        this.cols = new ArrayList<>();
         for (int i = 0; i < N; i++) {
             Set<Integer> thiscol = new HashSet<> ();
             for (int j = 0; j < N; j++) {
@@ -63,10 +64,23 @@ public class SudokuSolver {
             6 7 8
          */
         this.squares = new ArrayList<>();
+        for (int i = 0; i < N; i++){ // to iterate through squares
+            Set<Integer> thissqaure = new HashSet<>();
+            for (int j = i / (M * M); j < (i / M * M) + M; j++){ //row
+                for (int k = i % (M * M); k < i % (M * M) + M; k++){ //column
+                    thissqaure.add(grid[j][k]);
+                }
+            }
+            this.squares.add(thissqaure);
+        }
         
 
         // create a hash set for [1..9] (this.nums)
-        // ...
+        this.nums = new HashSet<>();
+        for (int i = 0; i <= N; i++){
+            nums.add(i);
+        }
+
 
         // visually inspect that all the sets are correct
         for (int row = 0; row < N; row++) {
@@ -92,6 +106,9 @@ public class SudokuSolver {
                     finished = false;
                     nextRow = row;
                     nextCol = col;
+                }
+                else {
+
                 }
             }
         }
