@@ -63,15 +63,15 @@ public class SudokuSolver {
             3 4 5
             6 7 8
          */
-        this.squares = new ArrayList<>();
-        for (int i = 0; i < N; i++){ // to iterate through squares
-            Set<Integer> thissqaure = new HashSet<>();
-            for (int j = i / (M * M); j < (i / M * M) + M; j++){ //row
-                for (int k = i % (M * M); k < i % (M * M) + M; k++){ //column
-                    thissqaure.add(grid[j][k]);
+        squares = new ArrayList<>();
+        for (int i = 0; i < N; i++){
+            Set<Integer> square = new HashSet<>();
+            for (int j = i / M * M; j < i / M * M + M; j++){
+                for (int k = i % M * M; k < i % M * M + M; k++){
+                    square.add(grid[j][k]);
                 }
             }
-            this.squares.add(thissqaure);
+            this.squares.add(square);
         }
         
 
@@ -172,7 +172,7 @@ public class SudokuSolver {
         
         possibleNums.removeAll(this.rows.get(nextRow));
         possibleNums.removeAll(this.cols.get(nextCol));
-        possibleNums.removeAll(this.squares.get(square));
+        possibleNums.removeAll(this.squares.get(nextRow / M * M + nextCol / M)); 
 
         // if there are no possible numbers, we cannot solve the board in its current state
         if (possibleNums.isEmpty()) {
@@ -185,7 +185,7 @@ public class SudokuSolver {
             this.grid[nextRow][nextCol] = possibleNum;
             this.rows.get(nextRow).add(possibleNum);
             this.cols.get(nextCol).add(possibleNum);
-            this.squares.get(square).add(possibleNum);
+            this.squares.get(nextRow / M * M + nextCol / M).remove(possibleNum);
 
 
             // recursively solve the board
@@ -202,7 +202,7 @@ public class SudokuSolver {
                 this.grid[nextRow][nextCol] = 0;
                 this.rows.get(nextRow).remove(possibleNum);
                 this.cols.get(nextCol).remove(possibleNum);
-                this.squares.get(square).remove(possibleNum);
+                this.squares.get(nextRow / M * M + nextCol / M).add(possibleNum);
             }
         }
 
