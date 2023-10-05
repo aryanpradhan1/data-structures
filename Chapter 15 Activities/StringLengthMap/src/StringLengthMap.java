@@ -1,4 +1,7 @@
 import java.util.*;
+
+import javafx.scene.paint.Color;
+
 import java.io.*;
 /**
  * Read all words from a file and add them to a
@@ -17,7 +20,7 @@ public class StringLengthMap
         try (Scanner in = new Scanner(new File(filename)))
         {
 
-            // Create your map here
+            Map<String, Color> favColors = new TreeMap<>();
             
 
             while (in.hasNext())
