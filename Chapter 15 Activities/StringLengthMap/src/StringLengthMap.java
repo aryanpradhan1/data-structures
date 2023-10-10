@@ -20,7 +20,7 @@ public class StringLengthMap
         try (Scanner in = new Scanner(new File(filename)))
         {
 
-            Map<String, Color> favColors = new TreeMap<>();
+            Map<Integer, String> lengths = new TreeMap<>();
             
 
             while (in.hasNext())
@@ -30,13 +30,27 @@ public class StringLengthMap
 
                 // Update the map here
                 // Modify Worked Example 15.1
-                
+                if(lengths.containsKey(len))
+                {
+                    lengths.put(len, lengths.get(len)+", "+word);
+                }
+                else
+                {
+                    lengths.put(len, word);
+                }
+            }
+
 
 
             }
 
             // Print the strings, in increasing order of their length
             // Use this format: 1: i, a, i
+            for(Integer key : lengths.keySet())
+            {
+                System.out.println(key + ": " + lengths.get(key));
+            }
+
         } catch (FileNotFoundException e)
         {
             System.out.println("Cannot open: " + filename);
@@ -57,4 +71,4 @@ public class StringLengthMap
         return r.toLowerCase();
     }
 
-}
+

@@ -19,10 +19,39 @@ public class HTMLChecker
     {
         String filename = "src/TagSample1.html";
 
+        Stack<String> tags = new Stack<>();
+        String current;
+        String test;
+        
         try (Scanner in = new Scanner(new File(filename)))
         {
             // Your code goes here
             . . .
+            String full = in.next();
+            current = full.substring(1, full.length() - 1);
+            tags.push(current);
+
+            while(in.hasNext())
+            {
+                String tag = in.next();
+                current = tag.substring(1, full.length() - 1);
+
+                test = tags.pop();
+                if(!current.equals("/" + test))
+                {
+                    tags.push(test);
+                    tags.push(current);
+                }
+                
+                if(tags.size()==0)
+                {
+                    System.out.println("The tags are correctly nested");
+                }
+                else{
+                    System.out.println("The tags not nested properly");
+                }
+
+            }
 
 
         } catch (FileNotFoundException e)

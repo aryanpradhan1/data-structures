@@ -21,11 +21,30 @@ public class Grid
                 pixels[p.getRow()][p.getColumn()] = count;
                 count++;
             }
+        
+
+        if(p.getRow() - 1 > -1 && pixels[p.getRow() - 1][p.getCol()] == 0)
+        {
+            pairs.push(new pair(p.getRow() - 1, p.getCol())); // up
+
         }
 
-        if(p.getRow() + 1 && pixels)
+        if (p.getRow() + 1 < 10 && pixels[p.getRow() + 1][p.getCol()] == 0)
+        {
+            pairs.push(new pair(p.getRow() + 1, p.getCol())); // down
+        }
 
+        if (p.getCol() - 1 > -1 && pixels[p.getRow()][p.getCol() - 1] == 0)
+        {
+            pairs.push(new pair(p.getRow(), p.getCol() - 1)); // left
+        }
+
+        if (p.getCol() + 1 < 10 && pixels[p.getRow()][p.getCol() + 1] == 0)
+        {
+            pairs.push(new pair(p.getRow(), p.getCol() + 1)); // right
+        }
     }
+}
 
     @Override
     public String toString()
