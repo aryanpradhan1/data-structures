@@ -7,13 +7,19 @@ public class CircularArrayQueue
 {
     private Object[] elements;
     //private data
-
+    private int head;
+    private int tail;
+    private int currentsize;
 
 
     /**
         Constructs an empty queue.
     */
+    public CircularArrayQueue() {
+        final int INITIAL_SIZE = 5;
+        this.elements = new Object[INITIAL_SIZE];
 
+    }
 
 
 
@@ -23,7 +29,9 @@ public class CircularArrayQueue
         Checks whether this queue is empty.
         @return true if this queue is empty
     */
-
+    public boolean empty() {
+        return this.currentsize == 0;
+    }
 
 
 
@@ -31,7 +39,12 @@ public class CircularArrayQueue
         Adds an element to the tail of this queue.
         @param newElement the element to add
     */
-
+    public void add(newElement) {
+        this.currentSize++;
+        this.elements[this.tail] = element;
+        this.tail++;
+        this.tail %= this.elements.length;
+    }
 
 
 
@@ -40,7 +53,14 @@ public class CircularArrayQueue
         Removes an element from the head of this queue.
         @return the removed element
     */
+    if(this.empty()) {
+        throw new NoSuchElementException();
+    }
 
+    this.currentSize--;
+    Object element = this.elements[this.head];
+    this.head = (this.head + 1) % this.elements.length;
+    return element;
 
 
 
