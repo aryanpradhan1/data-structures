@@ -24,7 +24,15 @@ public class LinkedList
     */
     public int size()
     {
-        . . .
+        Node position = new Node();
+        int counter = 0;
+        while(position.next != null)
+        {
+            position = position.next;
+            counter++;
+        }
+        counter++;
+        return counter;
     }
 
     /**
