@@ -1,4 +1,7 @@
 import java.util.TreeMap;
+
+import org.w3c.dom.Node;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
@@ -10,6 +13,7 @@ public class MorseCode
 
     private static TreeMap<Character, String> codeMap;
     private static TreeNode decodeTree;
+    private static Node root;
 
     public static void main(String[] args)
     {
@@ -71,9 +75,8 @@ public class MorseCode
      */
     private static void addSymbol(char letter, String code)
     {
-        /*
-            !!! INSERT CODE HERE
-        */
+        codeMap.put(letter, code);
+        treeInsert(letter, code);
     }
 
     /**
@@ -88,6 +91,10 @@ public class MorseCode
         /*
             !!! INSERT CODE HERE
         */
+        
+        Tree decodingTree = new Tree(root);
+        
+        
     }
 
     /**
