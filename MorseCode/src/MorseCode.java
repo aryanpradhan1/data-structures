@@ -92,7 +92,36 @@ public class MorseCode
             !!! INSERT CODE HERE
         */
         
-        Tree decodingTree = new Tree(root);
+        TreeNode root = decodeTree;
+        TreeNode child;
+
+        for(int i = 0; i < code.length(); i++) {
+            String str = code.substring(i, i + i); 
+            //Taking each letter
+
+            if(str.equals(".")) { //Going to the left
+                if(root.getLeft() == null) { //If nothing is there, set the value as a space
+                    TreeNode newValue = new TreeNode(" ");
+                    root.setLeft(newValue);
+                }
+                else {
+                    root = root.getLeft(); //else you go to the value on the left
+                }
+            }
+            else if(str.equals("-")) { //Going to the right
+                if(root.getLeft() == null) { //If nothing is there, set the value as a space
+                    TreeNode newValue = new TreeNode(" ");
+                    root.setRight(newValue);
+                }
+                else {
+                    root = root.getRight(); //else you go to the value on the right
+                }
+            }
+            else {
+                System.out.println("Wrong symbol");
+            }
+        }
+
         
         
     }
