@@ -104,31 +104,27 @@ public class MorseCode
                     TreeNode newValue = new TreeNode(" ");
                     root.setLeft(newValue);
                 }
-                else {
-                    root = root.getLeft(); //else you go to the value on the left
-                }
+                child = root.getLeft(); //else you go to the value on the left
             }
-            else if(str.equals("-")) { //Going to the right
+            else { //Going to the right
                 if(root.getLeft() == null) { //If nothing is there, set the value as a space
                     TreeNode newValue = new TreeNode(" ");
                     root.setRight(newValue);
                 }
-                else {
-                    root = root.getRight(); //else you go to the value on the right
-                }
+                child = root.getRight(); //else you go to the value on the right
             }
-            else {
-                System.out.println("Wrong symbol");
-            }
+            TreeNode temp = child;
+            root = temp;
+            child = null;
         }
 
-        
+        root.setValue(letter);
         
     }
 
     /**
-     * Converts text into a Morse code message.  Adds a space after a dot-dash
-     * sequence for each letter.  Other spaces in the text are transferred directly
+     * Converts text into a Morse code message. Adds a space after a dot-dash
+     * sequence for each letter. Other spaces in the text are transferred directly
      * into the encoded message.
      * Returns the encoded message.
      */
@@ -136,10 +132,19 @@ public class MorseCode
     {
         StringBuffer morse = new StringBuffer(400);
 
-        /*
-            !!! INSERT CODE HERE
-        */
-
+        text = text.toUpperCase(); // Only using upper case because of map
+        for(int i = 0; i < text.length(); i++)
+        {
+            if(text.charAt(i) == ' ') // If we have a space in our sequence, we only append one space to the morse code. This is because each individual letter also adds one.
+            {
+                morse.append(" ");
+            }
+            else
+            {
+                String currentChar = codeMap.get(text.charAt(i)) + " "; // Uses map to get code for each letter plus space.
+                morse.append(currentChar);
+            }
+        }
         return morse.toString();
     }
 
@@ -153,13 +158,44 @@ public class MorseCode
     {
         StringBuffer text = new StringBuffer(100);
 
-        /*
-            !!! INSERT CODE HERE
-        */
-
-        return text.toString();
+        int i = 0;
+        TreeNode current = decodeTree;
+        while(i < morse.length())
+        {
+            if(morse.charAt(i) == ' ' && i != morse.length() - 1) // Checking that we're not at the end
+            {
+                text.append(current.getValue());
+                current = decodeTree; // resets tree
+                i++;
+                if(morse.charAt(i) == ' ') // checking for double space
+                {
+                    text.append(" ");
+                }
+                else
+                {
+                    i--; 
+                }
+            }
+            else if(morse.charAt(i) == ' ' && i == morse.length()-1) // Case if it's at the end
+            {
+                text.append(current.getValue());
+                current = decodeTree;
+            }
+            else if(morse.charAt(i) == '.') // Dot means we go left
+            {
+                current = current.getLeft();
+            }
+            else if(morse.charAt(i) == '-') // Dash means we go right
+            {
+                current = current.getRight();
+            }
+            i++;
+        }
+        return text.toString(); // Return text
     }
+
 }
+
 
 /**
  * BTreePrinter class courtesy of Karen Ge (@karenge1)
