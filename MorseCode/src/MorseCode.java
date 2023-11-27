@@ -86,39 +86,79 @@ public class MorseCode
      * right.  The node at the end of the path holds the symbol
      * for that code string.
      */
+
+
     private static void treeInsert(char letter, String code)
-    {
-        /*
-            !!! INSERT CODE HERE
-        */
-        
-        TreeNode root = decodeTree;
-        TreeNode child;
+    {   
+        // TreeNode root = decodeTree;
+        // TreeNode child;
 
-        for(int i = 0; i < code.length(); i++) {
-            String str = code.substring(i, i + i); 
-            //Taking each letter
+        // for(int i = 0; i < code.length(); i++) {
+        //     Character str = code.charAt(i); 
+        //     //Taking each letter
 
-            if(str.equals(".")) { //Going to the left
-                if(root.getLeft() == null) { //If nothing is there, set the value as a space
-                    TreeNode newValue = new TreeNode(" ");
-                    root.setLeft(newValue);
+        //     if(str.equals('.')) { //Going to the left
+        //         if(root.getLeft() == null) { //If nothing is there, set the value as a space
+        //             TreeNode newValue = new TreeNode(' ');
+        //             root.setLeft(newValue);
+        //         }
+        //         child = root.getLeft(); //else you go to the value on the left
+        //     }
+        //     else { //Going to the right
+        //         if(root.getLeft() == null) { //If nothing is there, set the value as a space
+        //             TreeNode newValue = new TreeNode(' ');
+        //             root.setRight(newValue);
+        //         }
+        //         child = root.getRight(); //else you go to the value on the right
+        //     }
+        //     TreeNode temp = child;
+        //     root = temp;
+        //     child = null;
+        // }
+
+        // root.setValue(letter);
+
+        TreeNode current = decodeTree;
+        int i = 0;
+        while (i < code.length() - 1){
+
+            if (code.charAt(i) == '.'){ //Going to the left
+
+                if (current.getLeft() == null){
+                    current.setLeft(new TreeNode(" "));
+                } 
+
+                current = current.getLeft();
+
+            } else if (code.charAt(i) == '-'){ //Going to the right
+
+                if (current.getRight() == null){
+                    current.setRight(new TreeNode(" "));
                 }
-                child = root.getLeft(); //else you go to the value on the left
+                current = current.getRight();
+
             }
-            else { //Going to the right
-                if(root.getLeft() == null) { //If nothing is there, set the value as a space
-                    TreeNode newValue = new TreeNode(" ");
-                    root.setRight(newValue);
-                }
-                child = root.getRight(); //else you go to the value on the right
-            }
-            TreeNode temp = child;
-            root = temp;
-            child = null;
+
+            i++;
         }
 
-        root.setValue(letter);
+        if (code.charAt(i) == '.'){ //Setting the letter at the end
+
+            if (current.getLeft() == null){
+                current.setLeft(new TreeNode(letter));
+            } else {
+                current.getLeft().setValue(letter);
+            }
+
+        } else if (code.charAt(i) == '-'){ //Seeting the letter at the end
+
+            if (current.getRight() == null){
+                current.setRight(new TreeNode(letter));
+            } else {
+                current.getRight().setValue(letter);
+            }
+
+        }
         
     }
 
